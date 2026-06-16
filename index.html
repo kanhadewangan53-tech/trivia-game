@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free online quiz game in Hindi and English. Test your knowledge on GK, Bollywood, Sports and Science!">
+<meta name="keywords" content="quiz game hindi, online quiz, gk questions, bollywood quiz, sports quiz">
+<title>Quiz Master - हिंदी & English Free Quiz Game</title>
+<link rel="stylesheet" href="style.css">
+
+<!-- =============================================
+     GOOGLE ADSENSE — Step 1: Yahan apna code daalo
+     admob.google.com → Sites → Get Code
+     Neeche wali line mein YOUR_PUB_ID replace karo
+     ============================================= -->
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID" crossorigin="anonymous"></script> -->
+
+</head>
+<body>
+
+<!-- =============== TOP BANNER AD =============== -->
+<div class="ad-strip top-ad">
+  <span class="ad-label">Advertisement</span>
+  <!-- AdSense Banner 728x90 (Desktop) / 320x50 (Mobile) -->
+  <!--
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-YOUR_PUB_ID"
+       data-ad-slot="YOUR_TOP_BANNER_SLOT"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  -->
+  <div class="ad-placeholder">📢 AdSense Top Banner (728×90)</div>
+</div>
+
+<!-- =============== HEADER =============== -->
+<header>
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <span class="logo-icon">🎯</span>
+      <div>
+        <h1>Quiz Master</h1>
+        <p class="tagline">Free Online Quiz | मुफ़्त ऑनलाइन क्विज़</p>
+      </div>
+    </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-hi" onclick="setLang('hi')">🇮🇳 हिंदी</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">🇬🇧 English</button>
+    </div>
+  </div>
+</header>
+
+<!-- =============== MAIN LAYOUT =============== -->
+<div class="page-layout">
+
+  <!-- LEFT AD (desktop only) -->
+  <aside class="ad-sidebar left-ad">
+    <div class="ad-placeholder tall">
+      <!-- AdSense 160x600 Skyscraper -->
+      <!--
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:160px;height:600px"
+           data-ad-client="ca-pub-YOUR_PUB_ID"
+           data-ad-slot="YOUR_LEFT_SLOT"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      -->
+      <span class="ad-label">Ad</span>
+      <span>160×600</span>
+    </div>
+  </aside>
+
+  <!-- =============== CENTER CONTENT =============== -->
+  <main class="main-content">
+
+    <!-- HOME SCREEN -->
+    <section class="screen active" id="screen-home">
+      <div class="home-hero">
+        <h2 id="home-title">Category चुनें और खेलना शुरू करें!</h2>
+        <p id="home-sub" class="home-sub">10 सवाल • टाइमर • Points System</p>
+      </div>
+      <div class="cat-grid" id="cat-grid"></div>
+      <button class="btn-primary" id="start-btn" onclick="startQuiz()" disabled>
+        🚀 <span id="start-label">Quiz शुरू करें</span>
+      </button>
+
+      <!-- IN-CONTENT AD (below categories) -->
+      <div class="ad-strip inline-ad">
+        <span class="ad-label">Advertisement</span>
+        <!--
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-YOUR_PUB_ID"
+             data-ad-slot="YOUR_INLINE_SLOT"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        -->
+        <div class="ad-placeholder">📢 AdSense In-Content Ad (336×280)</div>
+      </div>
+
+      <div class="how-to">
+        <h3 id="howto-title">कैसे खेलें?</h3>
+        <div class="steps-grid">
+          <div class="step-card"><div class="step-num">1</div><p id="step1">Category चुनो</p></div>
+          <div class="step-card"><div class="step-num">2</div><p id="step2">Quiz शुरू करो</p></div>
+          <div class="step-card"><div class="step-num">3</div><p id="step3">15 सेकंड में जवाब दो</p></div>
+          <div class="step-card"><div class="step-num">4</div><p id="step4">Score देखो!</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUIZ SCREEN -->
+    <section class="screen" id="screen-quiz">
+      <div class="quiz-topbar">
+        <div class="q-meta">
+          <span class="q-counter" id="q-counter">Q 1 / 10</span>
+          <span class="cat-badge" id="cat-badge">GK</span>
+        </div>
+        <div class="score-live">⭐ <span id="score-live">0</span> pts</div>
+      </div>
+
+      <div class="timer-wrap">
+        <div class="timer-bar" id="timer-bar"></div>
+        <span class="timer-num" id="timer-num">15</span>
+      </div>
+
+      <div class="question-card">
+        <div class="question-text" id="question-text">Loading...</div>
+      </div>
+
+      <div class="options" id="options-container"></div>
+      <div class="feedback" id="feedback"></div>
+    </section>
+
+    <!-- RESULT SCREEN -->
+    <section class="screen" id="screen-result">
+      <div class="result-header">
+        <div class="result-emoji" id="result-emoji">🏆</div>
+        <h2 class="result-title" id="result-title">Excellent!</h2>
+      </div>
+      <div class="score-circle">
+        <svg viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#e2e8f0" stroke-width="8"/>
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#6C47FF" stroke-width="8"
+                  stroke-dasharray="326.7" id="score-arc" stroke-dashoffset="326.7"
+                  stroke-linecap="round" transform="rotate(-90 60 60)"/>
+        </svg>
+        <div class="score-inner">
+          <div class="score-pct" id="result-pct">0%</div>
+          <div class="score-lbl" id="score-lbl">Score</div>
+        </div>
+      </div>
+      <div class="result-stats">
+        <div class="stat correct-stat"><div class="stat-val" id="r-correct">0</div><div class="stat-lbl">✅ Correct</div></div>
+        <div class="stat wrong-stat"><div class="stat-val" id="r-wrong">0</div><div class="stat-lbl">❌ Wrong</div></div>
+        <div class="stat points-stat"><div class="stat-val" id="r-points">0</div><div class="stat-lbl">⭐ Points</div></div>
+      </div>
+
+      <!-- RESULT PAGE AD -->
+      <div class="ad-strip result-ad">
+        <span class="ad-label">Advertisement</span>
+        <!--
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-YOUR_PUB_ID"
+             data-ad-slot="YOUR_RESULT_SLOT"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        -->
+        <div class="ad-placeholder">📢 AdSense Result Page Ad (zyada clicks yahan!)</div>
+      </div>
+
+      <div class="result-btns">
+        <button class="btn-primary" onclick="playAgain()">🔄 <span id="again-label">फिर खेलो</span></button>
+        <button class="btn-secondary" onclick="goHome()">🏠 <span id="home-label">Home</span></button>
+        <button class="btn-share" onclick="shareScore()">📤 <span id="share-label">Share करो</span></button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- RIGHT AD (desktop only) -->
+  <aside class="ad-sidebar right-ad">
+    <div class="ad-placeholder tall">
+      <!-- AdSense 160x600 -->
+      <!--
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:160px;height:600px"
+           data-ad-client="ca-pub-YOUR_PUB_ID"
+           data-ad-slot="YOUR_RIGHT_SLOT"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      -->
+      <span class="ad-label">Ad</span>
+      <span>160×600</span>
+    </div>
+  </aside>
+
+</div><!-- end page-layout -->
+
+<!-- =============== FOOTER =============== -->
+<footer>
+  <p>© 2025 Quiz Master &nbsp;|&nbsp; <a href="#">Privacy Policy</a> &nbsp;|&nbsp; <a href="#">Contact</a></p>
+  <p style="font-size:12px;margin-top:4px;opacity:0.6">Free quiz game in Hindi & English</p>
+</footer>
+
+<!-- =============== INTERSTITIAL AD OVERLAY =============== -->
+<div id="interstitial" class="interstitial">
+  <div class="interstitial-box">
+    <div class="ad-label" style="margin-bottom:8px">ADVERTISEMENT</div>
+    <!--
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-YOUR_PUB_ID"
+         data-ad-slot="YOUR_INTERSTITIAL_SLOT"
+         data-ad-format="auto"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    -->
+    <div class="int-placeholder">
+      <div style="font-size:48px;margin-bottom:12px">🎮</div>
+      <div style="font-size:16px;font-weight:700;margin-bottom:6px">Quiz Master Premium</div>
+      <div style="font-size:13px;color:#888">No ads + Unlimited questions</div>
+    </div>
+    <button class="close-int-btn" id="close-int-btn" onclick="closeInterstitial()" disabled>
+      Skip <span id="skip-count">5</span>s
+    </button>
+  </div>
+</div>
+
+<!-- =============== BOTTOM STICKY AD =============== -->
+<div class="sticky-bottom-ad">
+  <span class="ad-label">Ad</span>
+  <!--
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-YOUR_PUB_ID"
+       data-ad-slot="YOUR_STICKY_SLOT"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  -->
+  <div class="ad-placeholder">📢 Sticky Bottom Banner — Highest CTR!</div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
